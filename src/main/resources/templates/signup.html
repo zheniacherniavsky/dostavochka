@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+</head>
+<body>
+<div th:insert="fragments/components :: header"></div>
+<form th:action="@{/signup}"
+      th:object="${accountForm}" method="POST">
+    <label for="login">
+        Login
+        <input id="login" type="text" th:field="*{login}" />
+    </label>
+    <label for="password">
+        Password
+        <input id="password" type="password" th:field="*{password}" />
+    </label>
+    <input type="submit" value="Sign Up" />
+</form>
+<p th:utext="${errorMessage}"></p>
+<div th:insert="fragments/components :: footer"></div>
+</body>
+</html>
