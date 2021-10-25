@@ -2,6 +2,8 @@ package com.pet.dostavochka.Controller;
 
 import com.pet.dostavochka.Forms.AccountForm;
 import com.pet.dostavochka.Model.Account;
+import com.pet.dostavochka.Repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +21,15 @@ import java.util.List;
 public class AccountController {
     private static List<Account> accounts = new ArrayList<>();
 
+    @Autowired
+    AccountRepository accountRepository;
+
     @Value("${account.errorMessages.allFieldsRequired}")
     String allFieldsRequired;
+    @Value("${account.errorMessages.invalidData}")
+    String invalidData;
+    @Value("${account.errorMessages.accountAlreadyExists}")
+    String accountAlreadyExists;
 
     @GetMapping(value = {"/signup"})
     public ModelAndView signUpPage(Model model) {
@@ -38,11 +47,15 @@ public class AccountController {
         String login = accountForm.getLogin();
         String password = accountForm.getPassword();
 
-        if( login != null && login.length() > 0 &&
-            password != null && password.length() > 0) {
-            Account account = new Account(login, password);
-            accounts.add(account);
-            modelAndView.setViewName("index");
+        if( login != null && login.length() > 0 ) {
+            Account account = accountRepository.findAccountByLogin(login);
+            if(account == null) {
+                Account newAccount = new Account(login, password);
+                accountRepository.save(newAccount);
+                modelAndView.setViewName("index");
+                return modelAndView;
+            }
+            model.addAttribute("errorMessage", accountAlreadyExists);
             return modelAndView;
         }
         else {
