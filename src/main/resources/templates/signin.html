@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>DOSTAVOCHKA - sign in</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signin.css}"/>
 </head>
 <body>
 <div th:insert="fragments/components :: header"></div>
-<form th:action="@{/signup}"
+<form th:action="@{/signin}"
       th:object="${accountForm}" method="POST">
     <label for="login">
         Login
@@ -18,10 +18,10 @@
         Password
         <input id="password" type="password" th:field="*{password}" />
     </label>
-    <input type="submit" value="Sign Up" />
+    <input type="submit" value="Sign In" />
 </form>
 <p th:utext="${errorMessage}"></p>
-<p>Already have account? <a th:href="@{/signin}">Sign In!</a></p>
+<p>Don`t have account? <a th:href="@{/signup}">Sign Up!</a></p>
 <div th:insert="fragments/components :: footer"></div>
 </body>
 </html>

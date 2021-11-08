@@ -2,6 +2,7 @@ package com.pet.dostavochka.Controller;
 
 import com.pet.dostavochka.Forms.AccountForm;
 import com.pet.dostavochka.Helpers.Exceptions.AccountAlreadyExistsException;
+import com.pet.dostavochka.Helpers.Exceptions.AccountNotExistsException;
 import com.pet.dostavochka.Helpers.Exceptions.AllFieldsRequiredException;
 import com.pet.dostavochka.Model.Account;
 import com.pet.dostavochka.Services.AccountService;
@@ -18,8 +19,6 @@ import java.util.List;
 @Controller
 @RequestMapping
 public class AccountController {
-    private static List<Account> accounts = new ArrayList<>();
-
     @Autowired
     AccountService accountService;
 
@@ -46,4 +45,29 @@ public class AccountController {
         }
         return modelAndView;
     }
+
+    @GetMapping(value = {"/signin"})
+        public ModelAndView signInPage(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("signin");
+        AccountForm accountForm = new AccountForm();
+        model.addAttribute("accountForm", accountForm);
+        return modelAndView;
+    }
+
+    @PostMapping(value = {"/signin"})
+    public ModelAndView signIn(Model model, @ModelAttribute("accountForm") AccountForm accountForm) {
+        ModelAndView modelAndView = new ModelAndView();
+        String login = accountForm.getLogin();
+        String password = accountForm.getPassword();
+        try {
+            accountService.signin(login, password);
+            modelAndView.setViewName("index");
+        } catch (AccountNotExistsException | AllFieldsRequiredException exception) {
+            modelAndView.setViewName("signin");
+            model.addAttribute("errorMessage", exception.getMessage());
+        }
+        return modelAndView;
+    }
+
 }
