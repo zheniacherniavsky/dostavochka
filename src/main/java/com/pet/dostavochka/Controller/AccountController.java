@@ -6,6 +6,7 @@ import com.pet.dostavochka.Helpers.Exceptions.AccountNotExistsException;
 import com.pet.dostavochka.Helpers.Exceptions.AllFieldsRequiredException;
 import com.pet.dostavochka.Model.Account;
 import com.pet.dostavochka.Services.AccountService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping
 public class AccountController {
@@ -41,7 +43,9 @@ public class AccountController {
             modelAndView.setViewName("index");
         } catch (AccountAlreadyExistsException | AllFieldsRequiredException exception) {
             modelAndView.setViewName("signup");
-            model.addAttribute("errorMessage", exception.getMessage());
+            String errorMessage = exception.getMessage();
+            log.info(errorMessage);
+            model.addAttribute("errorMessage", errorMessage);
         }
         return modelAndView;
     }
@@ -65,7 +69,9 @@ public class AccountController {
             modelAndView.setViewName("index");
         } catch (AccountNotExistsException | AllFieldsRequiredException exception) {
             modelAndView.setViewName("signin");
-            model.addAttribute("errorMessage", exception.getMessage());
+            String errorMessage = exception.getMessage();
+            log.info(errorMessage);
+            model.addAttribute("errorMessage", errorMessage);
         }
         return modelAndView;
     }
