@@ -1,5 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Neuton:wght@700&display=swap');
+
 body {
     background: aliceblue;
+}
+
+header {
+    background: #ffc244;
+    padding: 30px 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+header h1 {
+    color: #00a082;
+    font-family: 'Neuton', serif;
+}
+
+header .cart {
+    display: flex;
+    align-items: center;
+}
+
+footer {
+    background: #1d1d1d;
+    padding: 30px 15px;
+    color: white;
+    display: flex;
+    justify-content: end;
+}
+
+footer p {
+    margin: 0;
+    font-size: 20px;
+    font-family: 'Neuton', serif;
 }
 
 p.errorMessage {
