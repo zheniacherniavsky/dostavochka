@@ -15,7 +15,12 @@
 </head>
 <body>
 <div th:insert="fragments/components :: header"></div>
-<h2>Hi there!</h2>
+<div id="products"></div>
 <div th:insert="fragments/components :: footer"></div>
+
+<script th:src="@{/js/products.js}"></script>
+<script defer>
+    loadProducts();
+</script>
 </body>
 </html>
