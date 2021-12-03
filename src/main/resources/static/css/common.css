@@ -1,3 +1,11 @@
 body {
     background: aliceblue;
 }
+
+p.errorMessage {
+    color: red;
+}
+
+p.successMessage {
+    color: lightgreen;
+}
