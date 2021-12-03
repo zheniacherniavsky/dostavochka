@@ -8,20 +8,20 @@
 </head>
 <body>
 <div th:insert="fragments/components :: header"></div>
-<form th:action="@{/signin}"
-      th:object="${accountForm}" method="POST">
+<div>
     <label for="login">
         Login
-        <input id="login" type="text" th:field="*{login}" />
+        <input id="login" type="text"/>
     </label>
     <label for="password">
         Password
-        <input id="password" type="password" th:field="*{password}" />
+        <input id="password" type="password"/>
     </label>
-    <input type="submit" value="Sign In" />
-</form>
-<p th:utext="${errorMessage}"></p>
+    <button type="button" onclick="signin()">Sign In</button>
+</div>
+<p id="signinErrorMessage"></p>
 <p>Don`t have account? <a th:href="@{/signup}">Sign Up!</a></p>
 <div th:insert="fragments/components :: footer"></div>
+<script th:src="@{/js/signin.js}"></script>
 </body>
 </html>
