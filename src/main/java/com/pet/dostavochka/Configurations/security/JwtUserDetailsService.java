@@ -23,7 +23,6 @@ public class JwtUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User with login: " + login + " not found!");
         }
 
-        JwtAccount jwtAccount = JwtAccountFactory.create(account);
-        return jwtAccount;
+        return JwtAccountFactory.create(account);
     }
 }
