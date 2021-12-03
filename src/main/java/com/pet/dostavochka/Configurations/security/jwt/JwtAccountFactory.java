@@ -2,7 +2,6 @@ package com.pet.dostavochka.Configurations.security.jwt;
 
 import com.pet.dostavochka.Model.Account;
 import com.pet.dostavochka.Model.Role;
-import com.pet.dostavochka.Model.Status;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -19,7 +18,6 @@ public final class JwtAccountFactory {
                 account.getLogin(),
                 account.getPassword(),
                 mapToGrantedAuthorities(new ArrayList<>(account.getRoles())),
-                account.getStatus().equals(Status.ACTIVE),
                 account.getUpdated());
     }
 
