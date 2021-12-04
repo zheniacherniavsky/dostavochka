@@ -1,5 +1,6 @@
 package com.pet.dostavochka.Services;
 
+import com.pet.dostavochka.Model.Account;
 import com.pet.dostavochka.Model.Product;
 import com.pet.dostavochka.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,4 +14,6 @@ public class ProductService {
     ProductRepository productRepository;
 
     public List<Product> getAll() { return productRepository.findAll(); }
+
+    public Product findById(Long id) { return productRepository.findProductById(id); }
 }

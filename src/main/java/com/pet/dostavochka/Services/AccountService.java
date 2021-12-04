@@ -14,5 +14,5 @@ public class AccountService {
         return accountRepository.findAccountByLogin(login);
     }
 
-
+    public Account findById(Long id) { return accountRepository.findAccountById(id); }
 }

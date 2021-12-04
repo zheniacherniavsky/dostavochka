@@ -1,10 +1,12 @@
 package com.pet.dostavochka.Repository;
 
+import com.pet.dostavochka.Model.Account;
 import com.pet.dostavochka.Model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    
+    Product findProductById(Long id);
+
 }

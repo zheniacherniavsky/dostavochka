@@ -24,4 +24,10 @@ public class AccountProduct {
 
     @Column(name = "quantity")
     private int quantity;
+
+    public AccountProduct(int quantity, Account account, Product product) {
+        this.quantity = quantity;
+        this.account = account;
+        this.product = product;
+    }
 }
