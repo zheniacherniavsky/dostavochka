@@ -1,10 +1,10 @@
 const productsContainer = document.querySelector("#products");
 
 function loadProducts(category = "burger") {
-    productsContainer.innerHTML = '';
     fetch(`/api/v1/product/list?category=${category}`)
         .then(response => response.json())
         .then(data => {
+            productsContainer.innerHTML = '';
             const products = Object.values(data);
             if(products.length > 0) {
                 products.forEach(product => {
@@ -26,7 +26,9 @@ function productComponent(product) {
 
     const productDescription = document.createElement("p");
     productDescription.classList.add("description");
-    productDescription.innerHTML = product.description.length < 200 ? product.description : product.description.slice(0, 200)+'...';
+    if(product.description) {
+        productDescription.innerHTML = product.description.length < 200 ? product.description : product.description.slice(0, 200)+'...';
+    }
 
     const productPrice = document.createElement("p");
     productPrice.classList.add("price");
