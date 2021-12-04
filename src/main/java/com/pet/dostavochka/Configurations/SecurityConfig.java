@@ -1,36 +1,25 @@
 package com.pet.dostavochka.Configurations;
 
-import com.pet.dostavochka.Configurations.security.JwtUserDetailsService;
-import com.pet.dostavochka.Configurations.security.jwt.JwtConfigurer;
-import com.pet.dostavochka.Configurations.security.jwt.JwtTokenProvider;
+import com.pet.dostavochka.Configurations.security.jwt.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private final JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private JwtTokenFilter jwtTokenFilter;
 
     private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
     private static final String BUYER_ENDPOINT = "/api/v1/buyer/**";
+    private static final String ORDER_ENDPOINT = "/api/v1/order/**";
     private static final String ENDPOINT = "/";
-
-    @Autowired
-    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -42,8 +31,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .antMatchers(BUYER_ENDPOINT).hasRole("BUYER")
+                .antMatchers(ORDER_ENDPOINT).hasAnyRole("BUYER", "ADMIN")
                 .anyRequest().permitAll()
                 .and()
-                .apply(new JwtConfigurer(jwtTokenProvider));
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
 }

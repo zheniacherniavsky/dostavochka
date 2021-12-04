@@ -6,7 +6,7 @@ body {
 
 header {
     background: #ffc244;
-    padding: 30px 15px;
+    padding: 30px;
     display: flex;
     justify-content: space-between;
 }
@@ -14,6 +14,7 @@ header {
 header h1 {
     color: #00a082;
     font-family: 'Neuton', serif;
+    font-size: calc(2rem + 1.5vw);
 }
 
 header .cart {

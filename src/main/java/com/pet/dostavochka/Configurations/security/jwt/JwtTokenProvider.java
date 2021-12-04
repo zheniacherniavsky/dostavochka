@@ -37,15 +37,12 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(String login, List<Role> roles) {
-        Claims claims = Jwts.claims().setSubject(login);
-        claims.put("roles", getRoleNames(roles));
-
+    public String createToken(String login) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
         return Jwts.builder()
-                .setClaims(claims)
+                .setSubject(login)
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS256, secret)
@@ -53,7 +50,8 @@ public class JwtTokenProvider {
     }
 
     public String getLogin(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+        Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        return claims.getSubject();
     }
 
     public Authentication getAuthentication(String token) {
@@ -63,8 +61,10 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
-            return bearerToken.substring(7);
+
+        if (bearerToken != null && bearerToken.startsWith("Bearer")) {
+
+            return bearerToken.substring(7, bearerToken.length());
         }
 
         return null;
@@ -80,11 +80,7 @@ public class JwtTokenProvider {
         }
     }
 
-    private List<String> getRoleNames(List<Role> userRoles) {
-        List<String> result = new ArrayList<>();
-
-        userRoles.forEach(role -> result.add(role.getName()));
-
-        return result;
+    private String getRoleName(Role role) {
+        return role.getName();
     }
 }

@@ -34,7 +34,6 @@ public class AuthRestController {
 
     private final AuthService authService;
     private final AccountValidator accountValidator;
-    private final AuthenticationManager authenticationManager;
     private final AccountService accountService;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -42,12 +41,10 @@ public class AuthRestController {
     public AuthRestController
             (AuthService authService,
              AccountValidator accountValidator,
-             AuthenticationManager authenticationManager,
              AccountService accountService,
              JwtTokenProvider jwtTokenProvider) {
         this.authService = authService;
         this.accountValidator = accountValidator;
-        this.authenticationManager = authenticationManager;
         this.accountService = accountService;
         this.jwtTokenProvider = jwtTokenProvider;
     }
@@ -69,22 +66,12 @@ public class AuthRestController {
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity signin(@RequestBody AuthAccountDTO accountDetails) {
-        try {
-            String login = accountDetails.getLogin();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, accountDetails.getPassword()));
-            Account account = accountService.findByLogin(login);
-            if(account == null) {
-                throw new UsernameNotFoundException("User with login: " + login + " not found!");
-            }
-
-            String token = jwtTokenProvider.createToken(login, account.getRoles());
-
-            Map<Object, Object> response = new HashMap<>();
-            response.put("token", token);
-            response.put("accountId", account.getId());
-            return ResponseEntity.ok(response);
-        } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username or password");
-        }
+        String login = accountDetails.getLogin();
+        Account account = accountService.findByLogin(login);
+        String token = jwtTokenProvider.createToken(login);
+        Map<Object, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("accountId", account.getId());
+        return ResponseEntity.ok(response);
     }
 }

@@ -1,7 +1,6 @@
 package com.pet.dostavochka.Configurations.security;
 
 import com.pet.dostavochka.Configurations.security.jwt.JwtAccount;
-import com.pet.dostavochka.Configurations.security.jwt.JwtAccountFactory;
 import com.pet.dostavochka.Model.Account;
 import com.pet.dostavochka.Services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +15,8 @@ public class JwtUserDetailsService implements UserDetailsService {
     private AccountService accountService;
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+    public JwtAccount loadUserByUsername(String login) throws UsernameNotFoundException {
         Account account = accountService.findByLogin(login);
-
-        if(account == null) {
-            throw new UsernameNotFoundException("User with login: " + login + " not found!");
-        }
-
-        return JwtAccountFactory.create(account);
+        return JwtAccount.fromAccountToJwtAccount(account);
     }
 }

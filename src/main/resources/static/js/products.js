@@ -37,7 +37,7 @@ function productComponent(product) {
 
         fetch("/api/v1/order/add", {
             method: "POST",
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer_' + token},
             body: JSON.stringify({
                 quantity: 1,
                 accountId,
