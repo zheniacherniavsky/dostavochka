@@ -15,9 +15,28 @@
 </head>
 <body>
 <div th:insert="fragments/components :: header"></div>
+<div class="categories">
+    <button type="button" id="burger" class="categories__category selected" onclick="selectBurger()">
+        <img src="/img/burger.png" width="48">
+        <h2>Burgers</h2>
+    </button>
+    <button type="button" id="pizza" class="categories__category" onclick="selectPizza()">
+        <img src="/img/pizza.png" width="48">
+        <h2>Pizza</h2>
+    </button>
+    <button type="button" id="sushi" class="categories__category" onclick="selectSushi()">
+        <img src="/img/sushi.png" width="48">
+        <h2>Sushi</h2>
+    </button>
+    <button type="button" id="drinks" class="categories__category" onclick="selectDrinks()">
+        <img src="/img/drinks.png" width="48">
+        <h2>Drinks</h2>
+    </button>
+</div>
 <div id="products"></div>
 <div th:insert="fragments/components :: footer"></div>
 
+<script th:src="@{/js/menu.js}"></script>
 <script th:src="@{/js/products.js}"></script>
 <script defer>
     loadProducts();
