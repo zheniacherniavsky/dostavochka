@@ -18,6 +18,7 @@ function selectBurger() {
         menu[selectedMenuOption].classList.remove('selected');
         menu[BURGER].classList.add('selected');
         selectedMenuOption = BURGER;
+        loadProducts(BURGER);
     }
 }
 
@@ -26,6 +27,7 @@ function selectPizza() {
         menu[selectedMenuOption].classList.remove('selected');
         menu[PIZZA].classList.add('selected');
         selectedMenuOption = PIZZA;
+        loadProducts(PIZZA);
     }
 }
 
@@ -34,6 +36,7 @@ function selectSushi() {
         menu[selectedMenuOption].classList.remove('selected');
         menu[SUSHI].classList.add('selected');
         selectedMenuOption = SUSHI;
+        loadProducts(SUSHI);
     }
 }
 
@@ -42,5 +45,6 @@ function selectDrinks() {
         menu[selectedMenuOption].classList.remove('selected');
         menu[DRINKS].classList.add('selected');
         selectedMenuOption = DRINKS;
+        loadProducts(DRINKS);
     }
 }

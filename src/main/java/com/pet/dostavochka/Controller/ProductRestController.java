@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -20,8 +22,9 @@ public class ProductRestController {
     private ProductService productService;
 
     @GetMapping(value = "list")
-    public ResponseEntity<List<Product>> getProducts() {
-        List<Product> products = productService.getAll();
+    public ResponseEntity<List<Product>> getProducts(@RequestParam Map<String, String> mapParam) {
+        String category = mapParam.get("category");
+        List<Product> products = productService.getAllByCategory(category);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }

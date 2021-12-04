@@ -25,7 +25,7 @@
 }
 
 .productsContainer {
-    padding: 30px;
+    padding: 0 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,17 +34,47 @@
 }
 
 .product {
-    width: 280px;
-    width: 280px;
+    width: 300px;
     padding: 10px;
-    border: 1px solid black;
-    border-radius: 10px;
 }
 
 .product img {
     width: 280px;
-    height: 150px;
+    height: 280px;
     object-fit: contain;
+    border-radius: 20px;
+}
+
+.product h3 {
+    font-family: 'Neuton', serif;
+    margin: 10px 0;
+}
+
+.product p.description {
+    color: gray;
+    font-size: 12px;
+}
+
+.product .addToCart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product .addToCart button {
+    font-family: 'Neuton';
+    font-size: 20px;
+    max-height: 50px;
+}
+
+.product .addToCart p.price {
+    font-family: 'Neuton';
+    font-size: 36px;
+    line-height: 32px;
+    margin: 0;
+}
+.product .addToCart p.price::before {
+    content: '$';
 }
 
 @media (max-width: 576px) {
