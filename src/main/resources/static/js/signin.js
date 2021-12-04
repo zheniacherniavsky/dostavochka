@@ -15,8 +15,9 @@ async function signin() {
 
     const data = await response.json();
 
-    if(response.status === 200 && data.token) {
+    if(response.status === 200 && data.token && data.accountId) {
         window.localStorage.setItem("token", data.token);
+        window.localStorage.setItem("accountId", data.accountId);
         resultMessage.innerHTML = "";
     } else {
         resultMessage.className = "errorMessage";
