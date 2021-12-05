@@ -50,7 +50,7 @@ function productComponent(product) {
             return;
         } else errorMessage.innerHTML = "";
 
-        fetch("/api/v1/order/add", {
+        fetch("/api/v1/cart/add", {
             method: "POST",
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer ' + token},
             body: JSON.stringify({

@@ -2,9 +2,9 @@ package com.pet.dostavochka.Controller;
 
 import com.pet.dostavochka.DTO.AccountProductDTO;
 import com.pet.dostavochka.Model.Account;
-import com.pet.dostavochka.Model.AccountProduct;
+import com.pet.dostavochka.Model.Cart;
 import com.pet.dostavochka.Model.Product;
-import com.pet.dostavochka.Services.AccountProductService;
+import com.pet.dostavochka.Services.CartSevice;
 import com.pet.dostavochka.Services.AccountService;
 import com.pet.dostavochka.Services.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +18,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/api/v1/order")
-public class AccountProductRestController {
+@RequestMapping(value = "/api/v1/cart")
+public class CartRestController {
     @Autowired
-    AccountProductService accountProductService;
+    CartSevice cartSevice;
     @Autowired
     AccountService accountService;
     @Autowired
@@ -34,16 +35,16 @@ public class AccountProductRestController {
     public ResponseEntity addToCart(RequestEntity<AccountProductDTO> accountProductDTO) {
         Account account = accountService.findById(accountProductDTO.getBody().getAccountId());
         Product product = productService.findById(accountProductDTO.getBody().getProductId());
-        AccountProduct order = new AccountProduct(accountProductDTO.getBody().getQuantity(), account, product);
-        accountProductService.createCartOrder(order);
+        Cart order = new Cart(accountProductDTO.getBody().getQuantity(), account, product);
+        cartSevice.createCartOrder(order);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "cart", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<AccountProduct>> getCart(@RequestParam Map<String, String> mapParam) {
+    public ResponseEntity<List<Cart>> getCart(@RequestParam Map<String, String> mapParam) {
         Long accountId = Long.parseLong(mapParam.get("accountId"));
         Account account = accountService.findById(accountId);
-        List<AccountProduct> cart = accountProductService.getAccountProducts(account);
+        List<Cart> cart = cartSevice.getAccountProducts(account);
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
@@ -51,14 +52,14 @@ public class AccountProductRestController {
     public ResponseEntity updateCartProductQuantity(@RequestParam Map<String, String> mapParam) {
         Long cartOrderId = Long.parseLong(mapParam.get("cartOrderId"));
         int quantity = Integer.parseInt(mapParam.get("quantity"));
-        accountProductService.changeCartProductQuantity(cartOrderId, quantity);
+        cartSevice.changeCartProductQuantity(cartOrderId, quantity);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping(value = "delete")
     public ResponseEntity deleteCartProductOrder(@RequestParam Map<String, String> mapParam) {
         Long cartOrderId = Long.parseLong(mapParam.get("cartOrderId"));
-        accountProductService.removeCartProductOrder(cartOrderId);
+        cartSevice.removeCartProductOrder(cartOrderId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

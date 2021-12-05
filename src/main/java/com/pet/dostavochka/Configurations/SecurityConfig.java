@@ -18,8 +18,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
     private static final String BUYER_ENDPOINT = "/api/v1/buyer/**";
-    private static final String ORDER_ENDPOINT = "/api/v1/order/**";
-    private static final String ENDPOINT = "/";
+    private static final String CART_ENDPOINT = "/api/v1/cart/**";
+    private static final String DELIVERY_ENDPOINT = "/api/v1/delivery/**";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .antMatchers(BUYER_ENDPOINT).hasAnyRole("BUYER", "ADMIN")
-                .antMatchers(ORDER_ENDPOINT).hasAnyRole("BUYER", "ADMIN")
+                .antMatchers(CART_ENDPOINT).hasAnyRole("BUYER", "ADMIN")
+                .antMatchers(DELIVERY_ENDPOINT).hasAnyRole("BUYER", "ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

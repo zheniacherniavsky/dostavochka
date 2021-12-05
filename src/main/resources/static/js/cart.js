@@ -13,7 +13,7 @@ function loadCart(stage) {
     const accountId = window.localStorage.getItem("accountId");
     totalPrice = 0;
     if(token && accountId) {
-        fetch(`/api/v1/order/cart?accountId=${accountId}`, {
+        fetch(`/api/v1/cart/cart?accountId=${accountId}`, {
             headers: {'Authorization': 'Bearer ' + token},
         }).then(async (response) => {
             if(response.status === 403) {
@@ -46,6 +46,7 @@ function loadCart(stage) {
                         }
                     });
                 } else {
+                    document.querySelector("#ordersCount").innerHTML = '0';
                     const notFoundDiv = document.createElement('div');
                     notFoundDiv.classList.add('products-cart-not-found');
                     notFoundDiv.appendChild((() => {
@@ -94,7 +95,7 @@ function cartProductComponent(order) {
             actualPrice = parseFloat(product.price * value).toFixed(2);
             changeTotalPrice(+actualPrice)
             document.querySelector(`#product-actual-price_${orderId}`).innerHTML = actualPrice;
-            fetch(`/api/v1/order/updateQuantity?cartOrderId=${orderId}&quantity=${value}`, {
+            fetch(`/api/v1/cart/updateQuantity?cartOrderId=${orderId}&quantity=${value}`, {
                 method: "PATCH",
                 headers: {'Authorization': 'Bearer ' + token},
             })
@@ -141,7 +142,7 @@ function cartProductComponent(order) {
             return;
         } else errorMessage.innerHTML = "";
 
-        fetch(`/api/v1/order/delete?cartOrderId=${orderId}`, {
+        fetch(`/api/v1/cart/delete?cartOrderId=${orderId}`, {
             method: "DELETE",
             headers: {'Authorization': 'Bearer ' + token},
         }).then(async (response) => {
@@ -172,4 +173,42 @@ function cartProductComponent(order) {
     productCartContainer.appendChild(div2);
 
     return productCartContainer;
+}
+
+function submitOrder() {
+    const errorMessage = document.querySelector(`#cartErrorMessage`);
+    const street = document.querySelector("#street").value;
+    const home = document.querySelector("#home").value;
+    const floor = document.querySelector("#floor").value;
+    const flat = document.querySelector("#flat").value;
+    const firstName = document.querySelector("#firstName").value;
+    const lastName = document.querySelector("#lastName").value;
+    const phoneNumber = document.querySelector("#phoneNumber").value;
+    const email = document.querySelector("#email").value;
+    const accountId = window.localStorage.getItem("accountId");
+    const token = window.localStorage.getItem("token");
+
+    errorMessage.innerHTML = "";
+
+    fetch("/api/v1/delivery/create", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token},
+        body: JSON.stringify({
+            street,
+            home,
+            floor,
+            flat,
+            firstName,
+            lastName,
+            phoneNumber,
+            email,
+            accountId
+        })
+    }).then(response => {
+        if(response.status === 204) {
+            loadCart(STAGE_CART);
+        } else {
+            errorMessage.innerHTML = "Something went wrong. Try again!";
+        }
+    })
 }

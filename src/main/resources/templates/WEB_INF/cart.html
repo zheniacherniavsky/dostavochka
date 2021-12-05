@@ -20,7 +20,7 @@
     <div id="orders">
     </div>
     <form id="cartSubmitOrder">
-        <h3>Address Information</h3>
+        <h4>Address Information</h4>
         <div class="form-group">
             <label for="street">
                 Street
@@ -45,11 +45,24 @@
             </label>
             <input class="form-control" type="text" id="flat">
         </div>
+        <h4 class="mt-4">Who will pick order?</h4>
         <div class="form-group">
-            <label for="phone">
+            <label for="firstName">
+                First Name
+            </label>
+            <input class="form-control" type="text" id="firstName">
+        </div>
+        <div class="form-group">
+            <label for="lastName">
+                Last Name
+            </label>
+            <input class="form-control" type="text" id="lastName">
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">
                 Phone Number
             </label>
-            <input class="form-control" type="tel" id="phone">
+            <input class="form-control" type="tel" id="phoneNumber">
         </div>
         <div class="form-group">
             <label for="email">
@@ -59,7 +72,7 @@
         </div>
         <div class="d-flex justify-content-between mt-4">
             <h1>Total price: <span id="cartTotalPrice">0.00</span></h1>
-            <button type="button" class="btn btn-success">Send courier!</button>
+            <button type="button" class="btn btn-success" onclick="submitOrder()">Send courier!</button>
         </div>
     </form>
 

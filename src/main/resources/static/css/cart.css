@@ -6,7 +6,8 @@
     align-items: center;
 }
 
-.cart h1 {
+.cart h1,
+.cart h4 {
     font-family: 'Neuton', serif;
 }
 

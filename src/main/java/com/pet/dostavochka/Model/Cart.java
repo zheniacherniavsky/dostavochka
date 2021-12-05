@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "AccountProduct")
-public class AccountProduct {
+@Table(name = "Cart")
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +25,11 @@ public class AccountProduct {
     @Column(name = "quantity")
     private int quantity;
 
-    public AccountProduct(int quantity, Account account, Product product) {
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
+
+    public Cart(int quantity, Account account, Product product) {
         this.quantity = quantity;
         this.account = account;
         this.product = product;
