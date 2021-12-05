@@ -1,5 +1,9 @@
 .cart {
     padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .cart h1 {
@@ -8,6 +12,14 @@
 
 .cart h1 span::before {
     content: '$';
+}
+
+.cart #orders {
+    width: 100%;
+}
+
+.cart form {
+    width: 70%;
 }
 
 .cart #orders .product-cart {

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Neuton:wght@700&display=swap');
 
 body {
-
+    overflow-x: hidden;
 }
 
 header {
@@ -38,6 +38,17 @@ footer {
     display: flex;
     justify-content: end;
     margin-top: 30px;
+    position: relative;
+}
+
+footer img {
+    position: absolute;
+    width: 70vw;
+    bottom: 30px;
+    right: -100px;
+    z-index: -100;
+    filter: opacity(0.2);
+    max-width: 700px;
 }
 
 footer p {
@@ -86,4 +97,18 @@ button.btn.btn-primary {
 button.btn.btn-primary:hover {
     background-color: #e7ac3c;
     border-color: #e7ac3c;
+}
+
+form {
+    width: 50vw;
+}
+
+form .form-group{
+    margin-bottom: 15px;
+}
+
+@media (max-width: 576px) {
+    form {
+        width: 100%;
+    }
 }

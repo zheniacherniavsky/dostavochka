@@ -6,14 +6,6 @@
     padding: 100px 30px;
 }
 
-.signInPage form {
-    width: 50vw;
-}
-
-.signInPage form .form-group{
-    margin-bottom: 15px;
-}
-
 .signInPage h2 {
     font-family: 'Neuton', serif;
     margin-bottom: 20px;
@@ -26,7 +18,7 @@
 }
 
 @media (max-width: 576px) {
-    .signInPage form {
+    form {
         width: 100%;
     }
 }
