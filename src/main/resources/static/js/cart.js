@@ -12,13 +12,15 @@ function loadCart(stage) {
     const token = window.localStorage.getItem("token");
     const accountId = window.localStorage.getItem("accountId");
     totalPrice = 0;
-
     if(token && accountId) {
         fetch(`/api/v1/order/cart?accountId=${accountId}`, {
             headers: {'Authorization': 'Bearer ' + token},
         }).then(async (response) => {
             if(response.status === 403) {
                 window.localStorage.clear();
+                if(stage === STAGE_CART) {
+                    window.location.assign("/signin");
+                }
             }
             else {
                 const data = await response.json();
@@ -43,11 +45,24 @@ function loadCart(stage) {
                             cartProductsContainer.appendChild(cartProductComponent(order));
                         }
                     });
+                } else {
+                    const notFoundDiv = document.createElement('div');
+                    notFoundDiv.classList.add('products-cart-not-found');
+                    notFoundDiv.appendChild((() => {
+                        const text = document.createElement('h1');
+                        text.innerHTML = "Cart is empty!";
+                        return text;
+                    })());
+                    cartProductsContainer.appendChild(notFoundDiv);
+                    document.querySelector("#cartSubmitOrder").classList.add('d-none');
                 }
             }
         })
     } else {
         document.querySelector("#ordersCount").innerHTML = '0';
+        if(stage === STAGE_CART) {
+            window.location.assign("/signin");
+        }
     }
 }
 
