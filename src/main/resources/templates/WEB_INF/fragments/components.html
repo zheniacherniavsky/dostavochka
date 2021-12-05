@@ -21,18 +21,35 @@
         function fillAuthLinks() {
             const authLinks = document.querySelector('#authLinks');
             authLinks.innerHTML = "";
+            const token = window.localStorage.getItem("token")
+            if(token) {
+                const accountId = window.localStorage.getItem("accountId");
+                fetch(`/api/v1/buyer/isAdmin?accountId=${accountId}`,
+                    {
+                        headers: {'Authorization': `Bearer ${token}`}
+                    })
+                    .then(response => response.json())
+                    .then(isAdmin => {
+                        const signOut = document.createElement("button");
+                        signOut.onclick = () => {
+                            localStorage.clear();
+                            window.location.assign("/");
+                        };
+                        signOut.classList.add('no-link');
+                        signOut.classList.add('btn');
+                        signOut.innerHTML = "Sign Out";
 
-            if(window.localStorage.getItem("token")) {
-                const signOut = document.createElement("button");
-                signOut.onclick = () => {
-                    localStorage.clear();
-                    window.location.assign("/");
-                };
-                signOut.classList.add('no-link');
-                signOut.classList.add('btn');
-                signOut.innerHTML = "Sign Out";
+                        if (isAdmin) {
+                            const admin = document.createElement("a");
+                            admin.href = "/admin";
+                            admin.innerHTML = "Admin Functions"
+                            admin.classList.add('no-link');
 
-                authLinks.appendChild(signOut);
+                            authLinks.appendChild(admin);
+                        }
+
+                        authLinks.appendChild(signOut);
+                    });
             } else {
                 const signIn = document.createElement("a");
                 signIn.href = "/signin";

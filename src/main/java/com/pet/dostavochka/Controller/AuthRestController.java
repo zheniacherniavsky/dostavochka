@@ -72,6 +72,7 @@ public class AuthRestController {
         Map<Object, Object> response = new HashMap<>();
         response.put("token", token);
         response.put("accountId", account.getId());
+        response.put("role", account.getRole().getName());
         return ResponseEntity.ok(response);
     }
 }

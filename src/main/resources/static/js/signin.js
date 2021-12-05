@@ -15,7 +15,8 @@ async function signin() {
 
     const data = await response.json();
 
-    if(response.status === 200 && data.token && data.accountId) {
+    if(response.status === 200 && data.token && data.accountId && data.role) {
+        if(data.role === "ROLE_ADMIN") isAdmin = true;
         window.localStorage.setItem("token", data.token);
         window.localStorage.setItem("accountId", data.accountId);
         resultMessage.innerHTML = "";

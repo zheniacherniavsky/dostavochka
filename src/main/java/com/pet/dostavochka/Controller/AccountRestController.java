@@ -25,4 +25,13 @@ public class AccountRestController {
         account.setPassword(null);
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/isAdmin")
+    public ResponseEntity<Boolean> isAdmin(@RequestParam Map<String, String> mapParam) {
+        Long accountId = Long.parseLong(mapParam.get("accountId"));
+        Account account = accountService.findById(accountId);
+        Boolean isAdmin = "ROLE_ADMIN".equals(account.getRole().getName()) ? true : false;
+        account.setPassword(null);
+        return new ResponseEntity<>(isAdmin, HttpStatus.OK);
+    }
 }

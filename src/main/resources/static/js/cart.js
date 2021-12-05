@@ -54,8 +54,10 @@ function loadCart(stage) {
                         text.innerHTML = "Cart is empty!";
                         return text;
                     })());
-                    cartProductsContainer.appendChild(notFoundDiv);
-                    document.querySelector("#cartSubmitOrder").classList.add('d-none');
+                    if(stage === STAGE_CART) {
+                        cartProductsContainer && cartProductsContainer.appendChild(notFoundDiv);
+                        document.querySelector("#cartSubmitOrder").classList.add('d-none');
+                    }
                 }
             }
         })

@@ -2,6 +2,7 @@ package com.pet.dostavochka.Services;
 
 import com.pet.dostavochka.Model.Account;
 import com.pet.dostavochka.Model.Cart;
+import com.pet.dostavochka.Model.Delivery;
 import com.pet.dostavochka.Repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,10 @@ public class CartSevice {
 
     public List<Cart> getAccountProducts(Account account) {
         return cartRepository.findAccountProductsByAccountAndDeliveryIsNull(account);
+    }
+
+    public List<Cart> getCartItemsByDeliveryIds(List<Delivery> deliveries) {
+        return cartRepository.findAllByDeliveryIn(deliveries);
     }
 
     public boolean changeCartProductQuantity(Long cartOrderId, int quantity) {

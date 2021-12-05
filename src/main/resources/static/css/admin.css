@@ -1,0 +1,39 @@
+.admin {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 30px;
+    font-family: Consolas;
+}
+
+.admin .order {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    border-bottom: 1px solid;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.admin .order .info {
+    display: flex;
+    justify-content: space-around;
+}
+
+.admin .order .info .product-info {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #00a082;
+}
+
+.admin .order .total {
+    display: flex;
+    justify-content: space-around;
+}
+
+.admin h2 {
+    color: #ffc244;
+}
+
+.admin h4 {
+    color: #00a082;
+}
