@@ -1,5 +1,8 @@
 .mini-cart {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .mini-cart span {

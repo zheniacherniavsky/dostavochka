@@ -19,6 +19,7 @@ async function signin() {
         window.localStorage.setItem("token", data.token);
         window.localStorage.setItem("accountId", data.accountId);
         resultMessage.innerHTML = "";
+        window.location.assign("/")
     } else {
         resultMessage.className = "errorMessage";
         resultMessage.innerHTML = "Wrong credentials!";

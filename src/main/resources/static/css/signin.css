@@ -1,4 +1,4 @@
-.signUpPage {
+.signInPage {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,27 +6,27 @@
     padding: 100px 30px;
 }
 
-.signUpPage form {
+.signInPage form {
     width: 50vw;
 }
 
-.signUpPage form .form-group{
+.signInPage form .form-group{
     margin-bottom: 15px;
 }
 
-.signUpPage h2 {
+.signInPage h2 {
     font-family: 'Neuton', serif;
     margin-bottom: 20px;
 }
 
-.signUpPage #resultMessage {
+.signInPage #resultMessage {
     height: 24px;
     line-height: 24px;
     margin-top: 8px;
 }
 
 @media (max-width: 576px) {
-    .signUpPage form {
+    .signInPage form {
         width: 100%;
     }
 }

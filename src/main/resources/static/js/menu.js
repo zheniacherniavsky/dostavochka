@@ -18,8 +18,7 @@ function selectBurger() {
         menu[selectedMenuOption].classList.remove('selected');
         menu[BURGER].classList.add('selected');
         selectedMenuOption = BURGER;
-        loadProducts(BURGER);
-        loadCart();
+        window.dispatchEvent(new Event("updateProducts"))
     }
 }
 
@@ -28,8 +27,7 @@ function selectPizza() {
         menu[selectedMenuOption].classList.remove('selected');
         menu[PIZZA].classList.add('selected');
         selectedMenuOption = PIZZA;
-        loadProducts(PIZZA);
-        loadCart();
+        window.dispatchEvent(new Event("updateProducts"))
     }
 }
 
@@ -38,8 +36,7 @@ function selectSushi() {
         menu[selectedMenuOption].classList.remove('selected');
         menu[SUSHI].classList.add('selected');
         selectedMenuOption = SUSHI;
-        loadProducts(SUSHI);
-        loadCart();
+        window.dispatchEvent(new Event("updateProducts"))
     }
 }
 
@@ -48,7 +45,11 @@ function selectDrinks() {
         menu[selectedMenuOption].classList.remove('selected');
         menu[DRINKS].classList.add('selected');
         selectedMenuOption = DRINKS;
-        loadProducts(DRINKS);
-        loadCart();
+        window.dispatchEvent(new Event("updateProducts"))
     }
 }
+
+window.addEventListener("updateProducts", () => {
+    loadProducts(selectedMenuOption);
+    loadCart();
+})

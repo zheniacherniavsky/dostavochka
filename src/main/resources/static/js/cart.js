@@ -26,5 +26,7 @@ function loadCart() {
                 }
             }
         })
+    } else {
+        document.querySelector("#ordersCount").innerHTML = '0';
     }
 }

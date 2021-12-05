@@ -17,9 +17,18 @@ header h1 {
     font-size: calc(2rem + 1.5vw);
 }
 
-header .cart {
+header .links {
     display: flex;
     align-items: center;
+}
+
+header .links .auth a.no-link,
+header .links .auth button.no-link
+{
+    margin-right: 10px;
+    font-family: 'Neuton', serif;
+    font-size: 20px;
+    color: #00a082;
 }
 
 footer {
@@ -45,11 +54,11 @@ p.successMessage {
     color: lightgreen;
 }
 
-a {
+a.no-link {
     color: black;
     text-decoration: none;
 }
 
-a:hover {
+a.no-link:hover {
     color: black;
 }

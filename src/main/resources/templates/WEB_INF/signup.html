@@ -11,22 +11,30 @@
           rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/minicart.css}"/>
 </head>
 <body>
 <div th:insert="fragments/components :: header"></div>
-<div>
-    <label for="login">
-        Login
-        <input id="login" type="text"/>
-    </label>
-    <label for="password">
-        Password
-        <input id="password" type="password" />
-    </label>
-    <button type="button" onclick="signup()">Sign Up</button>
+<div class="signUpPage">
+    <h2>Sign Up - Dostavochka</h2>
+    <form>
+        <div class="form-group">
+            <label for="login">
+                Login
+            </label>
+            <input id="login" class="form-control" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="password">
+                Password
+            </label>
+            <input id="password" class="form-control" type="text"/>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="signup()">Sign Up</button>
+    </form>
+    <p id="resultMessage"></p>
+    <p>Already have account? <a th:href="@{/signin}">Sign In!</a></p>
 </div>
-<p id="resultMessage"></p>
-<p>Already have account? <a th:href="@{/signin}">Sign In!</a></p>
 <div th:insert="fragments/components :: footer"></div>
 <script th:src="@{/js/signup.js}"></script>
 </body>

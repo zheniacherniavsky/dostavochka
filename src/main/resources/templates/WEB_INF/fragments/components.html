@@ -3,12 +3,54 @@
 <body>
 <header th:fragment="header">
     <h1>Dostavochka</h1>
-    <a href="/cart">
-        <div class="mini-cart">
-            <span id="ordersCount">0</span>
-            <img src="/img/cart.svg" width="30" height="30">
+
+    <div class="links">
+        <div class="auth" id="authLinks">
         </div>
-    </a>
+        <div class="mini-cart">
+            <a href="/cart" class="no-link">
+                <span id="ordersCount">0</span>
+                <img src="/img/cart.svg" width="30" height="30">
+            </a>
+        </div>
+    </div>
+    <script>
+
+        function fillAuthLinks() {
+            const authLinks = document.querySelector('#authLinks');
+            authLinks.innerHTML = "";
+
+            if(window.localStorage.getItem("token")) {
+                const signOut = document.createElement("button");
+                signOut.onclick = () => {
+                    localStorage.clear();
+                    fillAuthLinks();
+                };
+                signOut.classList.add('no-link');
+                signOut.classList.add('btn');
+                signOut.innerHTML = "Sign Out";
+
+                authLinks.appendChild(signOut);
+            } else {
+                const signIn = document.createElement("a");
+                signIn.href = "/signin";
+                signIn.classList.add('no-link');
+                signIn.innerHTML = "Sign In";
+
+                const signUp = document.createElement("a");
+                signUp.href = "/signup";
+                signUp.classList.add('no-link');
+                signUp.innerHTML = "Sign Up";
+
+                authLinks.appendChild(signIn);
+                authLinks.appendChild(signUp);
+            }
+
+            window.dispatchEvent(new Event("updateProducts"));
+        }
+
+        fillAuthLinks();
+    </script>
 </header>
 
 <footer th:fragment="footer">
