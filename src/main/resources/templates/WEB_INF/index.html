@@ -12,6 +12,7 @@
           rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/minicart.css}"/>
 </head>
 <body>
 <div th:insert="fragments/components :: header"></div>
@@ -37,8 +38,12 @@
 <div th:insert="fragments/components :: footer"></div>
 
 <script th:src="@{/js/menu.js}"></script>
+<script th:src="@{/js/account.js}"></script>
+<script th:src="@{/js/cart.js}"></script>
 <script th:src="@{/js/products.js}"></script>
 <script defer>
+    loadCart();
+    // loadAccount();
     loadProducts();
 </script>
 </body>

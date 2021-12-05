@@ -77,6 +77,12 @@
     content: '$';
 }
 
+.product .errorMessage {
+    height: 24px;
+    line-height: 24px;
+    margin-top: 8px;
+}
+
 @media (max-width: 576px) {
     .categories {
         justify-content: space-between;

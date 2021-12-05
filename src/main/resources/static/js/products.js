@@ -15,8 +15,11 @@ function loadProducts(category = "burger") {
 }
 
 function productComponent(product) {
+    const productId = `product_${product.id}`;
+
     const productContainer = document.createElement("div");
     productContainer.classList.add("product");
+    productContainer.id = productId;
 
     const productImg = document.createElement("img");
     productImg.src = product.image;
@@ -36,10 +39,15 @@ function productComponent(product) {
 
     const addToCartButton = document.createElement("button");
     addToCartButton.innerHTML = "Add to Cart";
-    addToCartButton.className="btn btn-success"
+    addToCartButton.className="addToCartButton btn btn-success"
     addToCartButton.onclick = () => {
         const token = window.localStorage.getItem("token");
         const accountId = window.localStorage.getItem("accountId");
+        const errorMessage = document.querySelector(`#${productId} .errorMessage`);
+
+        if(!token || !accountId) {
+            errorMessage.innerHTML = "Please Sign In before adding to cart!";
+        } else errorMessage.innerHTML = "";
 
         fetch("/api/v1/order/add", {
             method: "POST",
@@ -49,6 +57,16 @@ function productComponent(product) {
                 accountId,
                 productId: product.id
             })
+        }).then(async (response) => {
+            if(response.status === 403) {
+                errorMessage.innerHTML = "Please Sign In before adding to cart!";
+            } else {
+                const addToCartButton = document.querySelector(`#${productId} .addToCartButton`);
+                addToCartButton.innerHTML = "Added to cart";
+                addToCartButton.disabled = true;
+                const ordersCount = document.querySelector("#ordersCount");
+                ordersCount.innerHTML = parseInt(ordersCount.innerHTML) + 1;
+            }
         })
     }
 
@@ -57,11 +75,14 @@ function productComponent(product) {
     addToCartAndPriceContainer.appendChild(addToCartButton);
     addToCartAndPriceContainer.appendChild(productPrice);
 
+    const errorMessage = document.createElement("p");
+    errorMessage.classList.add("errorMessage");
 
     productContainer.appendChild(productImg);
     productContainer.appendChild(productHeader);
     productContainer.appendChild(productDescription);
     productContainer.appendChild(addToCartAndPriceContainer);
+    productContainer.appendChild(errorMessage);
 
     return productContainer;
 }

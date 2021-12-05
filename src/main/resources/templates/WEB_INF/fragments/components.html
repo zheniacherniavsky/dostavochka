@@ -3,9 +3,12 @@
 <body>
 <header th:fragment="header">
     <h1>Dostavochka</h1>
-    <div class="cart">
-        <img src="/img/cart.svg" width="30" height="30">
-    </div>
+    <a href="/cart">
+        <div class="mini-cart">
+            <span id="ordersCount">0</span>
+            <img src="/img/cart.svg" width="30" height="30">
+        </div>
+    </a>
 </header>
 
 <footer th:fragment="footer">

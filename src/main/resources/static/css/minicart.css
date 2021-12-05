@@ -1,0 +1,20 @@
+.mini-cart {
+    position: relative;
+}
+
+.mini-cart span {
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    height: 20px;
+    min-width: 20px;
+    background: #00a082;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-family: 'Neuton';
+    font-size: 16px;
+    padding-bottom: 3px;
+    color: white;
+}
