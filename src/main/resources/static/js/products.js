@@ -47,6 +47,7 @@ function productComponent(product) {
 
         if(!token || !accountId) {
             errorMessage.innerHTML = "Please Sign In before adding to cart!";
+            return;
         } else errorMessage.innerHTML = "";
 
         fetch("/api/v1/order/add", {

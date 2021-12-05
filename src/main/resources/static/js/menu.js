@@ -51,5 +51,6 @@ function selectDrinks() {
 
 window.addEventListener("updateProducts", () => {
     loadProducts(selectedMenuOption);
-    loadCart();
+    loadCart(STAGE_PLP);
+    loadCart(STAGE_CART);
 })

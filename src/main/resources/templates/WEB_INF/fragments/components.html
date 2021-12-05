@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
 <header th:fragment="header">
-    <h1>Dostavochka</h1>
+    <a class="no-link" href="/">
+        <h1>Dostavochka</h1>
+    </a>
 
     <div class="links">
         <div class="auth" id="authLinks">
@@ -24,7 +26,7 @@
                 const signOut = document.createElement("button");
                 signOut.onclick = () => {
                     localStorage.clear();
-                    fillAuthLinks();
+                    window.location.assign("/");
                 };
                 signOut.classList.add('no-link');
                 signOut.classList.add('btn');
@@ -45,8 +47,6 @@
                 authLinks.appendChild(signIn);
                 authLinks.appendChild(signUp);
             }
-
-            window.dispatchEvent(new Event("updateProducts"));
         }
 
         fillAuthLinks();

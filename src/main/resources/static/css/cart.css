@@ -1,0 +1,74 @@
+.cart {
+    padding: 30px;
+}
+
+.cart h1 {
+    font-family: 'Neuton', serif;
+}
+
+.cart h1 span::before {
+    content: '$';
+}
+
+.cart #orders .product-cart {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #1d1d1d;
+    margin-bottom: 30px;
+}
+
+.cart #orders .product-cart h3 {
+    font-family: 'Neuton', serif;
+}
+
+.cart #orders .product-cart > div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+
+.cart #orders .product-cart > div > div {
+    display: flex;
+}
+
+.cart #orders .product-actual-price-container {
+    display: flex;
+    padding-right: 20px;
+}
+
+.cart #orders .product-actual-price-container p {
+    margin: 0;
+    font-size: 20px;
+    font-family: 'Neuton';
+}
+
+.cart .product-quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 250px;
+}
+
+.cart .product-quantity-container p {
+    margin: 0;
+    font-size: 20px;
+    font-family: 'Neuton', serif;
+    padding-right: 10px;
+}
+
+.cart .product-quantity-container input {
+    width: 100px;
+}
+
+.cart p.price {
+    font-family: 'Neuton', serif;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.cart p.price::before {
+    content: '$';
+}

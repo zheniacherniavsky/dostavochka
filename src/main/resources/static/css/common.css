@@ -62,3 +62,28 @@ a.no-link {
 a.no-link:hover {
     color: black;
 }
+
+button.btn {
+    font-family: 'Neuton', serif;
+}
+
+button.btn.btn-success {
+    background-color: #00a082;
+    border-color: #00a082;
+}
+
+button.btn.btn-success:hover {
+    background-color: #006b57;
+    border-color: #006b57;
+}
+
+button.btn.btn-primary {
+    color: black;
+    background-color: #ffc244;
+    border-color: #ffc244;
+}
+
+button.btn.btn-primary:hover {
+    background-color: #e7ac3c;
+    border-color: #e7ac3c;
+}

@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface AccountProductRepository extends JpaRepository<AccountProduct, Long> {
     List<AccountProduct> findAccountProductsByAccount(Account account);
+
+    AccountProduct findAccountProductById(Long id);
 }

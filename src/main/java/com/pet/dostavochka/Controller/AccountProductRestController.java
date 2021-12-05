@@ -14,10 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +35,7 @@ public class AccountProductRestController {
         Account account = accountService.findById(accountProductDTO.getBody().getAccountId());
         Product product = productService.findById(accountProductDTO.getBody().getProductId());
         AccountProduct order = new AccountProduct(accountProductDTO.getBody().getQuantity(), account, product);
-        accountProductService.createOrder(order);
+        accountProductService.createCartOrder(order);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
@@ -48,5 +45,20 @@ public class AccountProductRestController {
         Account account = accountService.findById(accountId);
         List<AccountProduct> cart = accountProductService.getAccountProducts(account);
         return new ResponseEntity<>(cart, HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "updateQuantity")
+    public ResponseEntity updateCartProductQuantity(@RequestParam Map<String, String> mapParam) {
+        Long cartOrderId = Long.parseLong(mapParam.get("cartOrderId"));
+        int quantity = Integer.parseInt(mapParam.get("quantity"));
+        accountProductService.changeCartProductQuantity(cartOrderId, quantity);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping(value = "delete")
+    public ResponseEntity deleteCartProductOrder(@RequestParam Map<String, String> mapParam) {
+        Long cartOrderId = Long.parseLong(mapParam.get("cartOrderId"));
+        accountProductService.removeCartProductOrder(cartOrderId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

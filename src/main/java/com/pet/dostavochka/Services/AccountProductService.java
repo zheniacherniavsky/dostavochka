@@ -13,12 +13,24 @@ public class AccountProductService {
     @Autowired
     AccountProductRepository accountProductRepository;
 
-    public AccountProduct createOrder(AccountProduct order) {
-        accountProductRepository.save(order);
-        return order;
+    public AccountProduct createCartOrder(AccountProduct cartOrder) {
+        accountProductRepository.save(cartOrder);
+        return cartOrder;
     }
 
     public List<AccountProduct> getAccountProducts(Account account) {
         return accountProductRepository.findAccountProductsByAccount(account);
+    }
+
+    public boolean changeCartProductQuantity(Long cartOrderId, int quantity) {
+        AccountProduct cartOrder = accountProductRepository.findAccountProductById(cartOrderId);
+        cartOrder.setQuantity(quantity);
+        accountProductRepository.save(cartOrder);
+        return true;
+    }
+
+    public boolean removeCartProductOrder(Long cartOrderId) {
+        accountProductRepository.deleteById(cartOrderId);
+        return true;
     }
 }
