@@ -1,5 +1,6 @@
 package com.pet.dostavochka.Helpers.Exceptions.Handler;
 
+import com.pet.dostavochka.Helpers.Exceptions.AccountAuthException;
 import com.pet.dostavochka.Helpers.Exceptions.AccountValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         body.put("errors", errors);
 //        log.info(errors.toString());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AccountAuthException.class)
+    public final ResponseEntity<Object> handleAccountAuthException(AccountAuthException ex, WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDate.now());
+        body.put("errors", "Wrong credentials!");
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 }

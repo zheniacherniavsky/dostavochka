@@ -2,6 +2,7 @@ package com.pet.dostavochka.Controller;
 
 import com.pet.dostavochka.Configurations.security.jwt.JwtTokenProvider;
 import com.pet.dostavochka.DTO.AuthAccountDTO;
+import com.pet.dostavochka.Helpers.Exceptions.AccountAuthException;
 import com.pet.dostavochka.Helpers.Exceptions.AccountValidationException;
 import com.pet.dostavochka.Helpers.Validation.AccountValidator;
 import com.pet.dostavochka.Model.Account;
@@ -67,7 +68,9 @@ public class AuthRestController {
     @RequestMapping(value = "/signin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity signin(@RequestBody AuthAccountDTO accountDetails) {
         String login = accountDetails.getLogin();
-        Account account = accountService.findByLogin(login);
+        String password = accountDetails.getPassword();
+        Account account = accountService.findByLoginAndPassword(login, password);
+        if(account == null) throw new AccountAuthException("Wrong Credentials!");
         String token = jwtTokenProvider.createToken(login);
         Map<Object, Object> response = new HashMap<>();
         response.put("token", token);
