@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -65,5 +66,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("timestamp", LocalDate.now());
         body.put("errors", "Wrong credentials!");
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MessagingException.class)
+    public final ResponseEntity<Object> handleMailExceptionException(MessagingException ex, WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDate.now());
+        body.put("errors", "Something wrong with sending mail!");
+        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

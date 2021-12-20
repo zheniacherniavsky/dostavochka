@@ -11,6 +11,7 @@ import com.pet.dostavochka.Model.Delivery;
 import com.pet.dostavochka.Model.Product;
 import com.pet.dostavochka.Services.CartSevice;
 import com.pet.dostavochka.Services.DeliveryService;
+import com.pet.dostavochka.Services.MailService;
 import com.pet.dostavochka.Services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +39,6 @@ public class AdminRestController {
     CartSevice cartSevice;
     @Autowired
     ProductService productService;
-
     @Autowired
     ProductValidator productValidator;
 
@@ -53,7 +54,7 @@ public class AdminRestController {
     }
 
     @PatchMapping(value = "acceptOrder")
-    public ResponseEntity acceptOrder(@RequestParam Map<String, String> mapParam) {
+    public ResponseEntity acceptOrder(@RequestParam Map<String, String> mapParam) throws MessagingException {
         Long orderId = Long.parseLong(mapParam.get("orderId"));
         deliveryService.acceptOrder(orderId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);

@@ -32,6 +32,10 @@ public class CartSevice {
         return cartRepository.findAllByDeliveryIn(deliveries);
     }
 
+    public List<Cart> getCartItemsByDelivery(Delivery delivery) {
+        return cartRepository.findAllByDelivery(delivery);
+    }
+
     public boolean changeCartProductQuantity(Long cartOrderId, int quantity) {
         Cart cartOrder = cartRepository.findAccountProductById(cartOrderId);
         cartOrder.setQuantity(quantity);
