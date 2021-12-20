@@ -190,6 +190,18 @@ function submitOrder() {
     const accountId = window.localStorage.getItem("accountId");
     const token = window.localStorage.getItem("token");
 
+    if(!street ||
+        !home ||
+        !floor ||
+        !flat ||
+        !firstName ||
+        !lastName ||
+        !phoneNumber ||
+        !email) {
+        errorMessage.innerHTML = "Fill all fields!";
+        return;
+    }
+
     errorMessage.innerHTML = "";
 
     fetch("/api/v1/delivery/create", {

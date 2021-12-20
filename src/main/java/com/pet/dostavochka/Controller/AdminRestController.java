@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -38,5 +39,12 @@ public class AdminRestController {
         result[0] = orders;
         result[1] = carts;
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "acceptOrder")
+    public ResponseEntity acceptOrder(@RequestParam Map<String, String> mapParam) {
+        Long orderId = Long.parseLong(mapParam.get("orderId"));
+        deliveryService.acceptOrder(orderId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

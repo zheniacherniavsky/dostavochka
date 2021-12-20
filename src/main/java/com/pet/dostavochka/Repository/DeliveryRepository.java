@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
+    void deleteById(Long id);
+    Delivery getById(Long id);
 }

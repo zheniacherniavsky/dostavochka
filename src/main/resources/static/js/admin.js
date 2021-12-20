@@ -29,6 +29,7 @@ function loadOrders() {
 }
 
 function createOrderComponent(order, cartInfo) {
+    const token = window.localStorage.getItem("token");
     let totalPriceValue = 0;
 
     const orderComponent = document.createElement('div');
@@ -68,9 +69,10 @@ function createOrderComponent(order, cartInfo) {
                 const productInformation = document.createElement("div");
                 productInformation.className = "product-info";
                 const data = Object.entries(product).map(([name, value]) => {
+                    if (name === 'image' || name === 'description') return null;
                     if (name === 'price') totalPriceValue += parseFloat(value) * quantity;
                     return `${name}: ${value}`;
-                });
+                }).filter(Boolean);
                 data.push(`quantity: ${quantity}`);
                 productInformation.innerHTML = data.join("</br>");
                 return productInformation;
@@ -87,13 +89,25 @@ function createOrderComponent(order, cartInfo) {
 
         div.appendChild((() => {
             const totalPrice = document.createElement("h4");
-            totalPrice.innerHTML = `total price: $${totalPriceValue}`;
+            totalPrice.innerHTML = `total price: $${totalPriceValue.toFixed(2)}`;
             return totalPrice;
         })());
         div.appendChild((() => {
             const acceptButton = document.createElement("button");
             acceptButton.className = 'btn btn-primary';
             acceptButton.innerHTML = "acept order";
+            acceptButton.onclick = () => {
+                fetch(`/api/v1/admin/acceptOrder?orderId=${order.id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }).then(response => {
+                    if(response.ok) {
+                        loadOrders()
+                    }
+                })
+            }
             return acceptButton;
         })());
 
