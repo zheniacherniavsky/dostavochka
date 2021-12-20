@@ -34,3 +34,4 @@ build/
 
 ### Dostavochka ###
 app.log
+src/main/java/com/pet/dostavochka/Constants.java
