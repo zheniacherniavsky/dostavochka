@@ -2,6 +2,7 @@ package com.pet.dostavochka.Helpers.Exceptions.Handler;
 
 import com.pet.dostavochka.Helpers.Exceptions.AccountAuthException;
 import com.pet.dostavochka.Helpers.Exceptions.AccountValidationException;
+import com.pet.dostavochka.Helpers.Exceptions.ProductValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -20,6 +21,26 @@ import java.util.Map;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(AccountValidationException.class)
     public final ResponseEntity<Object> handleUserValidationException(AccountValidationException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDate.now());
+
+        List<Map<String, String>> errors = new LinkedList<>();
+
+        for (FieldError el: ex.getBindingResult().getFieldErrors()) {
+            Map<String,String> error = new LinkedHashMap<>();
+            error.put("field", el.getField());
+            error.put("message", el.getDefaultMessage());
+            errors.add(error);
+        }
+
+        body.put("errors", errors);
+//        log.info(errors.toString());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ProductValidationException.class)
+    public final ResponseEntity<Object> handleProductValidationException(ProductValidationException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDate.now());

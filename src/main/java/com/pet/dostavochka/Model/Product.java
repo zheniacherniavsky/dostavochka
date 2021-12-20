@@ -24,4 +24,12 @@ public class Product extends BaseEntity {
 
     @Column(name = "price")
     private float price;
+
+    public Product(String displayName, String description, String category, String image, float price) {
+        this.displayName = displayName;
+        this.description = description;
+        this.category = category;
+        this.image = image;
+        this.price = price;
+    }
 }

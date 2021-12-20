@@ -18,4 +18,6 @@ public class ProductService {
     public List<Product> getAllByCategory(String category) { return productRepository.findAllByCategory(category); }
 
     public Product findById(Long id) { return productRepository.findProductById(id); }
+
+    public Product create(Product product) { return productRepository.save(product); }
 }

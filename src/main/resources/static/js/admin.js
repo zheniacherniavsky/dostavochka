@@ -1,5 +1,40 @@
 function addProduct() {
-    console.log(123);
+    const token = window.localStorage.getItem("token");
+    const displayName = document.getElementById('displayName');
+    const category = document.getElementById('category');
+    const description = document.getElementById('description');
+    const price = document.getElementById('price');
+    const image = document.getElementById('image');
+
+    fetch('/api/v1/admin/addProduct', {
+        method: 'POST',
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            displayName: displayName.value,
+            category: category.value,
+            description: description.value,
+            price: parseFloat(price.value),
+            image: image.value
+        })
+    }).then(async (response) => {
+        if(response.ok) {
+            displayName.value = '';
+            category.value = '';
+            description.value = '';
+            price.value = '';
+            image.value = '';
+
+            alert('Product was added!')
+        } else {
+            const data = await response.json();
+            console.error("Errors", data.errors);
+            alert('Something went wrong!\nCheck console.')
+        }
+    })
+
 }
 
 function loadOrders() {
