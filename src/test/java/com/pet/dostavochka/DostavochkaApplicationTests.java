@@ -49,7 +49,7 @@ class DostavochkaApplicationTests {
 	}
 
 	@Test
-	public void testGetProducts() throws Exception {
+	public void testGetProductsByCategoryBurgers() throws Exception {
 		setUp();
 		List<Product> products = Arrays.asList(
 				new Product("1","1","burger","1",1),
@@ -59,6 +59,36 @@ class DostavochkaApplicationTests {
 		when(productRepository.findAllByCategory("burger")).thenReturn(products);
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/product/list?category=burger"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(2)));
+	}
+
+	@Test
+	public void testGetProductsByCategoryPizza() throws Exception {
+		setUp();
+		List<Product> products = Arrays.asList(
+				new Product("1","1","pizza","1",1),
+				new Product("1","1","pizza","1",1)
+		);
+
+		when(productRepository.findAllByCategory("pizza")).thenReturn(products);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/product/list?category=pizza"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$", Matchers.hasSize(2)));
+	}
+
+	@Test
+	public void testGetProductsByCategorySushi() throws Exception {
+		setUp();
+		List<Product> products = Arrays.asList(
+				new Product("1","1","sushi","1",1),
+				new Product("1","1","sushi","1",1)
+		);
+
+		when(productRepository.findAllByCategory("sushi")).thenReturn(products);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/product/list?category=sushi"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", Matchers.hasSize(2)));
 	}
