@@ -1,9 +1,6 @@
 package com.pet.dostavochka.Helpers.Validation;
 
-import com.pet.dostavochka.DTO.AuthAccountDTO;
 import com.pet.dostavochka.DTO.ProductDTO;
-import com.pet.dostavochka.Services.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
