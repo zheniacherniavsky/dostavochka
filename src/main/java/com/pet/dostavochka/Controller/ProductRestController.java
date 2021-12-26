@@ -25,6 +25,7 @@ public class ProductRestController {
     public ResponseEntity<List<Product>> getProducts(@RequestParam Map<String, String> mapParam) {
         String category = mapParam.get("category");
         List<Product> products = productService.getAllByCategory(category);
+        log.info("Get request : /api/v1/product/list");
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }

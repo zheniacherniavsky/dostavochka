@@ -18,14 +18,15 @@ public class IntegrationTests {
 
     @Autowired
     JwtTokenProvider jwtTokenProvider;
+
     private MockMvc mockMvc;
 
-    protected void setUp() {
+    public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
-    void testUnauthorizedJWTAccess() throws Exception {
+    public void testUnauthorizedJWTAccess() throws Exception {
         setUp();
         String token = "";
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/signin"))
@@ -36,7 +37,7 @@ public class IntegrationTests {
     }
 
     @Test
-    void testAuthorizedJWTAccess() throws Exception {
+    public void testAuthorizedJWTAccess() throws Exception {
         setUp();
         String token = "VALID TOKEN WITH ADMIN ACCESS";
 

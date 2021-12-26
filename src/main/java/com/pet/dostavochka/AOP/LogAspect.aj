@@ -23,7 +23,7 @@ public aspect LogAspect {
     @Before("callAtAppController()")
     public void beforeCallMethod(JoinPoint jp) {
         String args = Arrays.stream(jp.getArgs())
-                .map(Object::toString)
+                .map(obj -> obj.toString())
                 .collect(Collectors.joining(","));
         log.info("before " + jp.toString() + ", args=[" + args + "]");
     }

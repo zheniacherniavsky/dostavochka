@@ -44,6 +44,7 @@ public class DeliveryRestController {
             cart.setDelivery(delivery);
         });
         cartSevice.updateAllCartItems(accountCartItems);
+        log.info("Post request : /api/v1/delivery/create");
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

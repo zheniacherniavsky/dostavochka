@@ -37,6 +37,7 @@ public class CartRestController {
         Product product = productService.findById(accountProductDTO.getBody().getProductId());
         Cart order = new Cart(accountProductDTO.getBody().getQuantity(), account, product);
         cartSevice.createCartOrder(order);
+        log.info("Post request : /api/v1/cart/add");
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
@@ -45,6 +46,7 @@ public class CartRestController {
         Long accountId = Long.parseLong(mapParam.get("accountId"));
         Account account = accountService.findById(accountId);
         List<Cart> cart = cartSevice.getAccountProducts(account);
+        log.info("Get request : /api/v1/cart/cart");
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
@@ -53,6 +55,7 @@ public class CartRestController {
         Long cartOrderId = Long.parseLong(mapParam.get("cartOrderId"));
         int quantity = Integer.parseInt(mapParam.get("quantity"));
         cartSevice.changeCartProductQuantity(cartOrderId, quantity);
+        log.info("Patch request : /api/v1/cart/updateQuantity");
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -60,6 +63,7 @@ public class CartRestController {
     public ResponseEntity deleteCartProductOrder(@RequestParam Map<String, String> mapParam) {
         Long cartOrderId = Long.parseLong(mapParam.get("cartOrderId"));
         cartSevice.removeCartProductOrder(cartOrderId);
+        log.info("Delete request : /api/v1/cart/delete");
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

@@ -23,6 +23,7 @@ public class AccountRestController {
         Long accountId = Long.parseLong(mapParam.get("accountId"));
         Account account = accountService.findById(accountId);
         account.setPassword(null);
+        log.info("Get request : /api/v1/buyer/info");
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
@@ -31,6 +32,7 @@ public class AccountRestController {
         Long accountId = Long.parseLong(mapParam.get("accountId"));
         Account account = accountService.findById(accountId);
         Boolean isAdmin = "ROLE_ADMIN".equals(account.getRole().getName());
+        log.info("Get request : /api/v1/buyer/isAdmin");
         return new ResponseEntity<>(isAdmin, HttpStatus.OK);
     }
 }

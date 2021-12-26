@@ -56,7 +56,7 @@ public class AuthRestController {
 
         Account account = accountDetails.ToAccount();
         authService.signup(account);
-//        log.info("Get request : /api/v1/auth/registerStudent");
+        log.info("Post request : /api/v1/auth/signup");
         return new ResponseEntity<>(account, HttpStatus.CREATED);
     }
 
@@ -71,6 +71,7 @@ public class AuthRestController {
         response.put("token", token);
         response.put("accountId", account.getId());
         response.put("role", account.getRole().getName());
+        log.info("Post request : /api/v1/auth/signin");
         return ResponseEntity.ok(response);
     }
 }

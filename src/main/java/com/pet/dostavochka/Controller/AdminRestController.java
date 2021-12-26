@@ -50,6 +50,7 @@ public class AdminRestController {
         List[] result = new ArrayList[2];
         result[0] = orders;
         result[1] = carts;
+        log.info("Get request : /api/v1/admin/orders");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -57,6 +58,7 @@ public class AdminRestController {
     public ResponseEntity acceptOrder(@RequestParam Map<String, String> mapParam) throws MessagingException {
         Long orderId = Long.parseLong(mapParam.get("orderId"));
         deliveryService.acceptOrder(orderId);
+        log.info("Patch request : /api/v1/admin/acceptOrder");
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -73,7 +75,7 @@ public class AdminRestController {
         Product product = productDetails.toProduct();
 
         productService.create(product);
-//        log.info("Post request : /api/v1/admin/addProduct");
+        log.info("Post request : /api/v1/admin/addProduct");
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 }
