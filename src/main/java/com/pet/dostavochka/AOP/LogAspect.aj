@@ -8,24 +8,22 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 @Aspect
 @Component
 @Slf4j
-public aspect LogAspect {
-    @Pointcut("@annotation(LogAnnotation)")
+public class LogAspect {
+    @Pointcut("@annotation(com.pet.dostavochka.AOP.LogAnnotation)")
     public void callAtAppController() {
 
     }
 
     @Before("callAtAppController()")
-    public void beforeCallMethod(JoinPoint jp) {
-        String args = Arrays.stream(jp.getArgs())
-                .map(obj -> obj.toString())
-                .collect(Collectors.joining(","));
-        log.info("before " + jp.toString() + ", args=[" + args + "]");
+    public void beforeCallAt() {
+//        String args = Arrays.stream(jp.getArgs())
+//                .map(obj -> obj.toString())
+//                .collect(Collectors.joining(","));
+//        log.info("before " + jp.toString() + ", args=[" + args + "]");
+        log.info("hi!");
     }
 
     @After("callAtAppController()")

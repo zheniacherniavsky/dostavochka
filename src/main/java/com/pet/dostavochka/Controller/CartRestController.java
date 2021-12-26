@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping(value = "/api/v1/cart")
 public class CartRestController {
     @Autowired

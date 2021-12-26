@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping(value = "/api/v1/admin")
 public class AdminRestController {
     @Autowired

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping(value = "/api/v1/buyer")
 public class AccountRestController {
     @Autowired
